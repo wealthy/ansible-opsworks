@@ -43,4 +43,18 @@ Note that 'environment' is a required field in the custom json.
 ```
 
 Instances will be tagged with a role matching the name of the
-layer that they're brought up in.
+layer that they're brought up in. This can be overwritten by specifying
+the following in your custom json:
+```
+{ 
+  ansible: {
+    environment: 'dev',
+    layers: {
+      <layer_name>: {
+        role: "foo"
+      }
+    }
+  }
+}
+
+```
