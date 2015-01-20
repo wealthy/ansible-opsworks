@@ -5,7 +5,7 @@ extra_vars['opsworks'] = node['opsworks']
 extra_vars['ansible']  = node['ansible']
 
 execute "deploy" do
-  command "ansible-playbook -i /home/ec2-user/ansible/inv /home/ec2-user/ansible/#{node['opsworks']['activity']}.yml --extra-vars '#{extra_vars.to_json}'"
+  command "ansible-playbook -i /home/ec2-user/ansible/inv /home/ec2-user/ansible/deploy.yml --extra-vars '#{extra_vars.to_json}'"
   only_if { ::File.exists?("/home/ec2-user/ansible/#{node['opsworks']['activity']}.yml")}
   action :run
 end
