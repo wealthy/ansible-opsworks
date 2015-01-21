@@ -1,4 +1,7 @@
 require 'json'
+extra_vars = {}
+extra_vars['opsworks'] = node['opsworks']
+extra_vars['ansible']  = node['ansible']
 
 Chef::Application.fatal!("'ansible['environment']' must be defined in custom json for the opsworks stack") if node['ansible'].nil? || node['ansible']['environment'].nil? || node['ansible']['environment'].empty?
 
@@ -18,7 +21,7 @@ execute "tag instance" do
 end
 
 execute "configure base" do
-  command "ansible-playbook -i /home/ec2-user/base/inv /home/ec2-user/base/configure.yml"
+  command "ansible-playbook -i /home/ec2-user/base/inv /home/ec2-user/base/configure.yml --extra-vars '#{extra_vars.to_json}'"
   only_if { ::File.exists?("/home/ec2-user/base/configure.yml")}
   action :run
 end
