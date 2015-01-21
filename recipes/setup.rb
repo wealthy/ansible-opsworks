@@ -26,10 +26,6 @@ execute "configure base" do
   action :run
 end
 
-extra_vars = {}
-extra_vars['opsworks'] = node['opsworks']
-extra_vars['ansible']  = node['ansible']
-
 execute "setup" do
   command "ansible-playbook -i /home/ec2-user/ansible/inv /home/ec2-user/ansible/#{node['opsworks']['activity']}.yml --extra-vars '#{extra_vars.to_json}'"
   only_if { ::File.exists?("/home/ec2-user/ansible/#{node['opsworks']['activity']}.yml")}
