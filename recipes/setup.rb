@@ -34,7 +34,7 @@ end
 
 execute 'extract_some_tar' do
   command 'unzip /etc/opsworks-customs/ansible.zip'
-  cwd basepath
+  cwd zippath
 end
 
 # If the role for this layer is defined in custom json then set the role to what's defined
