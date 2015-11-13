@@ -23,6 +23,12 @@ basepath  = '/etc/opsworks-customs/'+folder
 directory zippath do
   mode '0755'
   recursive true
+  action :delete
+end
+
+directory zippath do
+  mode '0755'
+  recursive true
   action :create
 end
 
