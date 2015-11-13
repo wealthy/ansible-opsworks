@@ -30,7 +30,7 @@ basepath  = '/etc/opsworks-customs/'+folder
 directory zippath do
   mode '0755'
   recursive true
-  pip install ansiblection :create
+  action :create
 end
 
 remote_file '/etc/opsworks-customs/ansible.zip' do
