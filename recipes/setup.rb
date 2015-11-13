@@ -7,6 +7,18 @@ Chef::Application.fatal!("'ansible['environment']' must be defined in custom jso
 Chef::Application.fatal!("'ansible['playbooks']' must be defined in custom json for the opsworks stack") if node['ansible'].nil? || node['ansible']['playbooks'].nil? || node['ansible']['playbooks'].empty?
 Chef::Application.fatal!("'ansible['folder']' must be defined in custom json for the opsworks stack") if node['ansible'].nil? || node['ansible']['folder'].nil? || node['ansible']['folder'].empty?
 
+easy_install_package 'pip' do
+  action :install
+end
+
+bash 'install_ansible' do
+  user 'root'
+  cwd '/tmp'
+  code <<-EOH
+  pip install ansible
+  EOH
+end
+
 environment = node['ansible']['environment']
 layer = node['opsworks']['instance']['layers'].first
 playbooks = node['ansible']['playbooks']
@@ -18,12 +30,7 @@ basepath  = '/etc/opsworks-customs/'+folder
 directory zippath do
   mode '0755'
   recursive true
-  action :delete
-end
-
-directory zippath do
-  mode '0755'
-  action :create
+  pip install ansiblection :create
 end
 
 remote_file '/etc/opsworks-customs/ansible.zip' do
