@@ -6,7 +6,7 @@ extra_vars['ansible']  = node['ansible']
 folder = node['ansible']['folder']
 
 zippath = '/etc/opsworks-customs'
-basepath  = '/etc/opsworks-customs/#{folder}'
+basepath  = '/etc/opsworks-customs/'+folder
 
 
 execute "deploy" do

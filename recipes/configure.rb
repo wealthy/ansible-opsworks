@@ -7,7 +7,7 @@ playbooks = node['ansible']['playbooks']
 folder = node['ansible']['folder']
 
 zippath = '/etc/opsworks-customs'
-basepath  = '/etc/opsworks-customs/#{folder}'
+basepath  = '/etc/opsworks-customs/'+folder
 
 execute "configure" do
   command "ansible-playbook -i #{basepath}/inv #{basepath}/#{node['opsworks']['activity']}.yml --extra-vars '#{extra_vars.to_json}'"

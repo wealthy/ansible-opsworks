@@ -4,7 +4,7 @@ extra_vars = {}
 extra_vars['opsworks'] = node['opsworks']
 extra_vars['ansible']  = node['ansible']
 folder = node['ansible']['folder']
-basepath  = '/etc/opsworks-customs/#{folder}'
+basepath  = '/etc/opsworks-customs/'+folder
 
 execute "shutdown" do
   command "ansible-playbook -i #{basepath}/inv #{basepath}/#{node['opsworks']['activity']}.yml --extra-vars '#{extra_vars.to_json}'"

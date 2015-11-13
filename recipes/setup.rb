@@ -13,7 +13,7 @@ playbooks = node['ansible']['playbooks']
 folder = node['ansible']['folder']
 
 zippath = '/etc/opsworks-customs'
-basepath  = '/etc/opsworks-customs/#{folder}'
+basepath  = '/etc/opsworks-customs/'+folder
 
 directory zippath do
   mode '0755'
