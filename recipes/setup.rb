@@ -5,19 +5,23 @@ extra_vars['ansible']  = node['ansible']
 
 Chef::Application.fatal!("'ansible['environment']' must be defined in custom json for the opsworks stack") if node['ansible'].nil? || node['ansible']['environment'].nil? || node['ansible']['environment'].empty?
 Chef::Application.fatal!("'ansible['playbooks']' must be defined in custom json for the opsworks stack") if node['ansible'].nil? || node['ansible']['playbooks'].nil? || node['ansible']['playbooks'].empty?
+Chef::Application.fatal!("'ansible['folder']' must be defined in custom json for the opsworks stack") if node['ansible'].nil? || node['ansible']['folder'].nil? || node['ansible']['folder'].empty?
 
 environment = node['ansible']['environment']
 layer = node['opsworks']['instance']['layers'].first
 playbooks = node['ansible']['playbooks']
-basepath  = '/etc/opsworks-customs'
+folder = node['ansible']['folder']
 
-directory basepath do
+zippath = '/etc/opsworks-customs'
+basepath  = '/etc/opsworks-customs/#{folder}'
+
+directory zippath do
   mode '0755'
   recursive true
   action :delete
 end
 
-directory basepath do
+directory zippath do
   mode '0755'
   action :create
 end
@@ -52,13 +56,13 @@ execute "configure base" do
 end
 
 execute "setup" do
-  command "ansible-playbook -i #{basepath}/ansible/inv #{basepath}/ansible/#{node['opsworks']['activity']}.yml --extra-vars '#{extra_vars.to_json}'"
-  only_if { ::File.exists?("#{basepath}/ansible/#{node['opsworks']['activity']}.yml")}
+  command "ansible-playbook -i #{basepath}/inv #{basepath}/#{node['opsworks']['activity']}.yml --extra-vars '#{extra_vars.to_json}'"
+  only_if { ::File.exists?("#{basepath}/#{node['opsworks']['activity']}.yml")}
   action :run
 end
 
-if ::File.exists?("#{basepath}/ansible/#{node['opsworks']['activity']}.yml")
+if ::File.exists?("#{basepath}/#{node['opsworks']['activity']}.yml")
   Chef::Log.info("Log into #{node['opsworks']['instance']['private_ip']} and view /var/log/ansible.log to see the output of your ansible run")
 else
-  Chef::Log.info("No updates: #{basepath}/ansible/#{node['opsworks']['activity']}.yml not found")
+  Chef::Log.info("No updates: #{basepath}/#{node['opsworks']['activity']}.yml not found")
 end
