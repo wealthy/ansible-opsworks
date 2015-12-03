@@ -56,8 +56,8 @@ execute "tag instance" do
 end
 
 execute "configure base" do
-  command "ansible-playbook -i #{basepath}/base/inv #{basepath}/base/configure.yml --extra-vars '#{extra_vars.to_json}'"
-  only_if { ::File.exists?("#{basepath}/base/configure.yml")}
+  command "ansible-playbook -i #{basepath}/inv #{basepath}/configure.yml --extra-vars '#{extra_vars.to_json}'"
+  only_if { ::File.exists?("#{basepath}/configure.yml")}
   action :run
 end
 
