@@ -1,5 +1,40 @@
 require 'json'
 
+
+# Temporary setup code 
+environment = node['ansible']['environment']
+layer = node['opsworks']['instance']['layers'].first
+playbooks = node['ansible']['playbooks']
+folder = node['ansible']['folder']
+
+zippath = '/etc/opsworks-customs'
+basepath  = '/etc/opsworks-customs/'+folder
+
+directory zippath do
+  mode '0755'
+  recursive true
+  action :delete
+end
+
+directory zippath do
+  mode '0755'
+  recursive true
+  action :create
+end
+
+remote_file '/etc/opsworks-customs/ansible.zip' do
+  source playbooks
+  mode '0755'
+  action :create
+end
+
+execute 'extract_some_tar' do
+  command 'unzip /etc/opsworks-customs/ansible.zip'
+  cwd zippath
+end
+
+# Temporary setup code ends
+
 extra_vars = {}
 extra_vars['opsworks'] = node['opsworks']
 extra_vars['ansible']  = node['ansible']
