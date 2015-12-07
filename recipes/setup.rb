@@ -55,12 +55,6 @@ execute "tag instance" do
   action :run
 end
 
-execute "configure base" do
-  command "ansible-playbook -i #{basepath}/base/inv #{basepath}/base/configure.yml --extra-vars '#{extra_vars.to_json}'"
-  only_if { ::File.exists?("#{basepath}/base/configure.yml")}
-  action :run
-end
-
 execute "setup" do
   command "ansible-playbook -i #{basepath}/inv #{basepath}/#{node['opsworks']['activity']}.yml --extra-vars '#{extra_vars.to_json}'"
   only_if { ::File.exists?("#{basepath}/#{node['opsworks']['activity']}.yml")}
