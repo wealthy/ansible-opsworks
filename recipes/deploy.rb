@@ -38,6 +38,7 @@ end
 extra_vars = {}
 extra_vars['opsworks'] = node['opsworks']
 extra_vars['ansible']  = node['ansible']
+extra_vars['deploy']  = node['deploy']
 folder = node['ansible']['folder']
 
 zippath = '/etc/opsworks-customs'
