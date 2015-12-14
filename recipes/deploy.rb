@@ -39,13 +39,8 @@ extra_vars = {}
 app = node['custom_ansible']['app']
 extra_vars['opsworks'] = node['opsworks']
 extra_vars['ansible']  = node['ansible']
-extra_vars['deploy']  = node['deploy']
-# Finding out repositoru url
-#extra_vars['ansible']['source_code_url']  = node['deploy'][app]['scm']['repository']
-
 extra_vars['environment_variables'] = node['deploy'][app]['environment_variables'] 
 folder = node['ansible']['folder']
-extra_vars['node'] = node
 
 zippath = '/etc/opsworks-customs'
 basepath  = '/etc/opsworks-customs/'+folder
