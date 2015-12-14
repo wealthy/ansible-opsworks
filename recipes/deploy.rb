@@ -42,7 +42,7 @@ extra_vars['ansible']  = node['ansible']
 # Finding out repositoru url
 #extra_vars['ansible']['source_code_url']  = node['deploy'][app]['scm']['repository']
 
-extra_vars['environment_variables'] = node['deploy'][app]['environment_variables'] 
+#extra_vars['environment_variables'] = node['deploy'][app]['environment_variables'] 
 folder = node['ansible']['folder']
 extra_vars['node'] = node
 
