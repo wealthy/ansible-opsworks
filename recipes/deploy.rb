@@ -39,6 +39,7 @@ extra_vars = {}
 app = node['custom_ansible']['app']
 extra_vars['opsworks'] = node['opsworks']
 extra_vars['ansible']  = node['ansible']
+extra_vars['ansible']  = node['deploy']
 # Finding out repositoru url
 #extra_vars['ansible']['source_code_url']  = node['deploy'][app]['scm']['repository']
 
