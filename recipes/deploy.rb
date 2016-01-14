@@ -41,13 +41,13 @@ extra_vars['opsworks'] = node['opsworks']
 extra_vars['ansible']  = node['ansible']
 extra_vars['environment_variables'] = node['deploy'][app]['environment_variables']
 folder = node['ansible']['folder']
+extra_vars['repository'] = node['deploy'][app]['scm']
 
 zippath = '/etc/opsworks-customs'
 basepath  = '/etc/opsworks-customs/'+folder
 
 Chef::Log.info("Getting app data.. #{node['deploy']}")
 
-extra_vars['repository'] = node['deploy'][app]['scm']['repository']
 
 execute "deploy" do
   command "ansible-playbook -i #{basepath}/inv #{basepath}/deploy.yml --extra-vars '#{extra_vars.to_json}'"
