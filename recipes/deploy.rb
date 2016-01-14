@@ -46,7 +46,8 @@ extra_vars['repository'] = node['deploy'][app]['scm']
 zippath = '/etc/opsworks-customs'
 basepath  = '/etc/opsworks-customs/'+folder
 
-Chef::Log.info("Getting app data.. #{node['deploy']}")
+Chef::Log.info("Getting all data.. #{node['deploy']}")
+Chef::Log.info("Getting app data.. #{extra_vars.to_json}")
 
 
 execute "deploy" do
