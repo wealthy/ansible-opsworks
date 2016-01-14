@@ -47,7 +47,7 @@ basepath  = '/etc/opsworks-customs/'+folder
 
 Chef::Log.info("Getting app data.. #{node['deploy']}")
 
-extra_vars['repository'] = node['deploy'][app]['repository']
+extra_vars['repository'] = node['deploy'][app]['scm']['repository']
 
 execute "deploy" do
   command "ansible-playbook -i #{basepath}/inv #{basepath}/deploy.yml --extra-vars '#{extra_vars.to_json}'"
